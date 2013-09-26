@@ -9,7 +9,7 @@ ENT.LASTINGEFFECT = 60; --how long the high lasts in seconds
 
 --called when you use it (after it sets the high visual values and removes itself already)
 function ENT:High(activator,caller)
-	activator:ConCommand("say what")
+	self:Say(activator, "what")
 		
 end
 

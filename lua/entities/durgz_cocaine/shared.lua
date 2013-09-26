@@ -15,6 +15,9 @@ ENT.TRANSITION_TIME = 5
 
 
 if(CLIENT)then
+
+	killicon.Add("durgz_cocaine","killicons/durgz_cocaine_killicon",Color( 255, 80, 0, 255 ))
+
 	local cdw, cdw2, cdw3
 	cdw2 = -1
 	local TRANSITION_TIME = ENT.TRANSITION_TIME; --transition effect from sober to high, high to sober, in seconds how long it will take etc.
@@ -22,6 +25,7 @@ if(CLIENT)then
 	local STROBE_PACE = 1
 	
 	local function DoCocaine()
+		if(!DURGZ_LOST_VIRGINITY)then return; end
 		--self:SetNetworkedFloat( "SprintSpeed"
 		local pl = LocalPlayer();
 		local pf;
@@ -83,7 +87,7 @@ if(CLIENT)then
 			end
 			local ich = (cdw2*((cdw - CurTime())*(2/STROBE_PACE)))+cdw3 - 1
 			
-			DrawMaterialOverlay("models/shadertest/shader3",  pf*ich*0.05	)
+			DrawMaterialOverlay("highs/shader3",  pf*ich*0.05	)
 			DrawSharpen(pf*ich*5, 2) 
 			
 		end

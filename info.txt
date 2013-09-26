@@ -1,11 +1,11 @@
 "AddonInfo"
 {
 	"name"				"DurgzMod"
-	"version"			"2.0"
-	"up_date"			"24 January 2009"
+	"version"			"2.2"
+	"up_date"			"14 February 2009"
 	"author_name"			"cheesylard"
 	"author_email"			""
 	"author_url"			""
-	"info"				"ther gud 4 u"
+	"info"				"ther rly gud 4 u tak em"
 	"override"			"0"
 }

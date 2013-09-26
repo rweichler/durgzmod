@@ -16,7 +16,7 @@ function ENT:High(activator,caller)
 	--increase health
 	if( math.random(0,10) == 0 )then
 		activator:Ignite(5,0)
-		activator:ConCommand("say FFFFFFUUUUUUUUUUUUUUUUUU")
+		self:Say(activator, "FFFFFFUUUUUUUUUUUUUUUUUU")
 	else
 		local health = activator:Health()
 		if( health * 3/2 < 500 )then
@@ -27,18 +27,20 @@ function ENT:High(activator,caller)
 		
 		
 		local sayings = {
-			"hey gise. what if like the universe was just an videogame!!??!1 holy craaaap that would be awesomeeeeee",
 			"does any1 hav goldfish!?1 i want goldfish plz thx",
+			"My eyes aren't red. What are you talking about?",
 			"duuuuuuuuuuudeeeeeeee",
 			"hi how do i type in chat i cant figure it out"
 		}
-		activator:ConCommand("say "..sayings[math.random(1,#sayings)])
+		self:Say( activator, sayings[math.random(1,#sayings)] )
 		
 	end
 end
 
 function ENT:AfterHigh(activator, caller)
-	activator:SetGravity(0.2);
+	if( !self:Realistic() )then
+		activator:SetGravity(0.2);
+	end
 end
 
 

@@ -29,14 +29,17 @@ ENT.LASTINGEFFECT = 45; --how long the high lasts in seconds
 
 
 function ENT:High(activator,caller)
-	activator:ConCommand("say waitt, wait. guysss. i need to tells u abuot micrsfoft excel!11!")
+	self:Say(activator,"waitt, wait. guysss. i need to tells u abuot micrsfoft excel!11!")
 	
 	--does random stuff while higH!
 	local commands = {"left", "right", "moveleft", "moveright", "attack"}
 	local thing = math.random(1,3)
+	
+	local TRANSITION_TIME = self.TRANSITION_TIME;
+	
 	for i = 1,thing do
 		timer.Simple(math.Rand(5,10), function()
-			if( activator && activator:GetNetworkedFloat("durgz_alcohol_high_end") > CurTime() )then
+			if( activator && activator:GetNetworkedFloat("durgz_alcohol_high_end") - TRANSITION_TIME > CurTime() )then
 				local cmd = commands[math.random(1, #commands)]
 				activator:ConCommand("+"..cmd)
 				timer.Simple(1, function()
@@ -58,8 +61,9 @@ function ENT:High(activator,caller)
 				activator:ConCommand("+attack")
 				timer.Simple(0.1, function()
 					activator:ConCommand("-attack")
-					if( !activator:GetActiveWeapon() )then return end
-					activator:SelectWeapon(oldwep:GetClass())
+					if(oldwep == NULL || !oldwep || !activator:Alive())then return; end
+						activator:SelectWeapon(oldwep:GetClass()) --Timer Error: entities/durgz_alcohol/init.lua:65: Tried to use a NULL entity!
+
 				end)
 			end)
 		end

@@ -13,6 +13,12 @@ local HP_TO_ADD = 50;
 
 --called when you use it (after it sets the high visual values and removes itself already)
 function ENT:High(activator,caller)
+	if( activator.durgz_aspirin_used )then
+			activator.DURGZ_MOD_DEATH = "durgz_aspirin"
+			activator.DURGZ_MOD_OVERRIDE = activator:Nick().." "..self.OverdosePhrase[math.random(1, #self.OverdosePhrase)].." "..self.Nicknames[math.random(1, #self.Nicknames)].." and died.";
+			activator:Kill()
+	return
+	end
 	activator.durgz_aspirin_used = true
 	activator.durgz_aspirin_hp = activator:Health() + HP_TO_ADD
 	activator.durgz_aspirin_hp_start = activator:Health()

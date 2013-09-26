@@ -18,29 +18,33 @@ ENT.TRANSITION_TIME = 5
 
 
 if(CLIENT)then
+
+	killicon.Add("durgz_heroine","killicons/durgz_heroine_killicon",Color( 255, 80, 0, 255 ))
+
 	local cdw, cdw2, cdw3
 	cdw2 = -1
 	local TRANSITION_TIME = ENT.TRANSITION_TIME; --transition effect from sober to high, high to sober, in seconds how long it will take etc.
 	local HIGH_INTENSITY = 0.8; --1 is max, 0 is nothing at all
 	local STROBE_PACE_TOTAL = 1
 	
+	local tab = {}
+	tab[ "$pp_colour_addg" ] = 0
+	tab[ "$pp_colour_addb" ] = 0
+	tab[ "$pp_colour_brightness" ] = 0
+	tab[ "$pp_colour_contrast" ] = 1
+	tab[ "$pp_colour_colour" ] = 1
+	tab[ "$pp_colour_mulg" ] = 0
+	tab[ "$pp_colour_mulb" ] = 0
+	tab[ "$pp_colour_mulr" ] = 0
 	
 	local function DoHeroine()
+		if(!DURGZ_LOST_VIRGINITY)then return; end
 		--self:SetNetworkedFloat( "SprintSpeed"
 		local pl = LocalPlayer();
 		local pf;
 		
 		local STROBE_PACE = STROBE_PACE_TOTAL
 		
-		local tab = {}
-		tab[ "$pp_colour_addg" ] = 0
-		tab[ "$pp_colour_addb" ] = 0
-		tab[ "$pp_colour_brightness" ] = 0
-		tab[ "$pp_colour_contrast" ] = 1
-		tab[ "$pp_colour_colour" ] = 1
-		tab[ "$pp_colour_mulg" ] = 0
-		tab[ "$pp_colour_mulb" ] = 0
-		tab[ "$pp_colour_mulr" ] = 0
 		
 		
 		if( pl:GetNetworkedFloat("durgz_heroine_high_start") && pl:GetNetworkedFloat("durgz_heroine_high_end") > CurTime() )then
@@ -83,24 +87,24 @@ if(CLIENT)then
 			
 				
 			if( !cdw || cdw < CurTime() )then
-				cdw = CurTime() + STROBE_PACE
-				cdw2 = cdw2*-1
+				cdw = CurTime() + STROBE_PACE;
+				cdw2 = cdw2*-1;
 			end
 			if( cdw2 == -1 )then
-				cdw3 = 2
+				cdw3 = 2;
 			else
-				cdw3 = 0
+				cdw3 = 0;
 			end
-			local ich = (cdw2*((cdw - CurTime())*(2/STROBE_PACE)))+cdw3 - 1
+			local ich = (cdw2*((cdw - CurTime())*(2/STROBE_PACE)))+cdw3 - 1;
 			
 			
 			
 			
-			local gah = pf*(ich+1)
-			tab[ "$pp_colour_addr" ] = gah	
+			local gah = pf*(ich+1);
+			tab[ "$pp_colour_addr" ] = gah	;
 			
-			DrawMaterialOverlay("models/shadertest/shader3",  pf*ich*0.05	)
-			DrawColorModify(tab)
+			DrawMaterialOverlay("highs/shader3",  pf*ich*0.05	);
+			DrawColorModify(tab);
 			
 		end
 	end
@@ -112,6 +116,7 @@ if(CLIENT)then
 	local STROBE_PACE_2 = 1;
 	
 	local function HeroinNotice()
+		if(!DURGZ_LOST_VIRGINITY)then return; end
 		local pl = LocalPlayer();
 		if( pl:GetNetworkedFloat("durgz_heroine_high_end") && pl:GetNetworkedFloat("durgz_heroine_high_start") != 0 && pl:GetNetworkedFloat("durgz_heroine_high_end") > CurTime() && pl:GetNetworkedFloat("durgz_heroine_high_end") - TRANSITION_TIME < CurTime() )then
 			

@@ -14,16 +14,18 @@ function ENT:High(activator,caller)
 	--increase health/catch on fire
 	if( math.random(0,10) == 0 )then
 		activator:Ignite(5,0)
-		activator:ConCommand("say FUUUUUUUUUUUUUUUUUUUUUUUUUU")
+		self:Say(activator,"FUUUUUUUUUUUUUUUUUUUUUUUUUU")
 	else
-		for id,pl in pairs(player.GetAll())do
-		
-			if(pl != activator)then
-				pl:ConCommand("say "..activator:Nick().." is COOL.")
-			end
+		if( self:Say(activator, "") )then
+			for id,pl in pairs(player.GetAll())do
 			
+				if(pl != activator)then
+					pl:ConCommand("say "..activator:Nick().." is COOL.")
+				end
+				
+			end
 		end
-		activator:ConCommand("say I am COOL.")
+		self:Say(activator,"I am COOL.")
 	end
 	/*
 	--cigarette

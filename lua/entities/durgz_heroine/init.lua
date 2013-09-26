@@ -12,9 +12,11 @@ ENT.LASTINGEFFECT = 20; --how long the high lasts in seconds, short because it's
 
 function ENT:High(activator,caller)
 	--make you invincible
-	activator:GodEnable()
-	activator:SetHealth(1)
-	activator:ConCommand("say It's my arm man! My arm!")
+	if( !self:Realistic() )then
+		activator:GodEnable()
+		activator:SetHealth(1)
+	end
+	self:Say(activator, "It's my arm man! My fuckin' arm!")
 	
 end
 
@@ -23,9 +25,8 @@ local function HeroinDeath()
 	for id,pl in pairs(player.GetAll())do
 	
 		if pl:GetNetworkedFloat("durgz_heroine_high_end") < CurTime() && pl:GetNetworkedFloat("durgz_heroine_high_end") + 0.5 > CurTime() && pl:GetNetworkedFloat("durgz_heroine_high_start") != 0 then
-			for id2, pl2 in pairs(player.GetAll())do
-				pl2:PrintMessage(HUD_PRINTTALK, pl:Nick().." died because of their Heroin dependence.")
-			end
+			pl.DURGZ_MOD_DEATH = "durgz_heroine"
+			pl.DURGZ_MOD_OVERRIDE = pl:Nick().." died because of their Heroin dependence.";
 			pl:Kill()
 			pl:GodDisable()
 			pl:SetNetworkedFloat("durgz_heroine_high_start", 0)

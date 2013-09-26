@@ -1,11 +1,15 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-ENT.MODEL = "oijsdfjisd.mdl"
+ENT.MODEL = "models/props_c17/briefcase001a.mdl"
 ENT.LASTINGEFFECT = 30;
 ENT.HASHIGH = true
 ENT.MULTIPLY = 1
+ENT.LACED = {}
 
+--console commands
+CreateConVar( "durgz_witty_sayings", "1", { FCVAR_REPLICATED, FCVAR_ARCHIVE } )  --0 for no witty sayings when you take the drug 
+CreateConVar( "durgz_roleplay", "0", { FCVAR_REPLICATED, FCVAR_ARCHIVE } ) --set to 1 for none of those "special" side effects (like ultimate speed and really low gravity)
 
 function ENT:SpawnFunction( ply, tr ) 
    
@@ -33,6 +37,8 @@ function ENT:Initialize()
 		phys:Wake()  	
 	end
 	
+	self.LACED = {};
+	
 	if( self.MASS )then
 		self.Entity:GetPhysicsObject():SetMass( self.MASS );
 	end
@@ -46,51 +52,100 @@ end
  end 
 
  
- 
- --TODO: When your high is ending and you take another one add a nice transition to it as well (kinda like in the soberup function).
-
-function ENT:Use(activator,caller)
-	self:High(activator,caller)
-	if( self.HASHIGH )then
-	
+local function DoHigh(activator, caller, class, lastingeffect, transition_time, overdosephrase, nicknames)
 		--if you're transitioning to the end and you take another, smoothen it out
-		if activator:GetNetworkedFloat(self:GetClass().."_high_end") && activator:GetNetworkedFloat(self:GetClass().."_high_end") > CurTime() && activator:GetNetworkedFloat(self:GetClass().."_high_end") - self.TRANSITION_TIME < CurTime() then
+		if activator:GetNetworkedFloat(class.."_high_end") && activator:GetNetworkedFloat(class.."_high_end") > CurTime() && activator:GetNetworkedFloat(class.."_high_end") - transition_time < CurTime() then
 			--set the high start in such a way to where it doesn't snap to the start time, goes smoooothly.
-			local set = CurTime() - ( activator:GetNetworkedFloat(self:GetClass().."_high_end") - CurTime() )
-			activator:SetNetworkedFloat(self:GetClass().."_high_start", set)
+			local set = CurTime() - ( activator:GetNetworkedFloat(class.."_high_end") - CurTime() );
+			activator:SetNetworkedFloat(class.."_high_start", set);
 			
 		--if you're not high at all
-		elseif( !activator:GetNetworkedFloat(self:GetClass().."_high_start") || activator:GetNetworkedFloat(self:GetClass().."_high_end") < CurTime() )then
-			activator:SetNetworkedFloat(self:GetClass().."_high_start", CurTime())
+		elseif( !activator:GetNetworkedFloat(class.."_high_start") || activator:GetNetworkedFloat(class.."_high_end") < CurTime() )then
+			activator:SetNetworkedFloat(class.."_high_start", CurTime());
 		end
 		
 		--high is done
 		local ctime;
-		if( !activator:GetNetworkedFloat(self:GetClass().."_high_end") || activator:GetNetworkedFloat(self:GetClass().."_high_end") < CurTime() )then
+		if( !activator:GetNetworkedFloat(class.."_high_end") || activator:GetNetworkedFloat(class.."_high_end") < CurTime() )then
 			ctime = CurTime();
 		--you're already high on the drug,  add more highness
 		else
-			ctime = activator:GetNetworkedFloat(self:GetClass().."_high_end") - self.LASTINGEFFECT/3;
+			ctime = activator:GetNetworkedFloat(class.."_high_end") - lastingeffect/3;
 		end
-		activator:SetNetworkedFloat(self:GetClass().."_high_end", ctime + self.LASTINGEFFECT)
+		activator:SetNetworkedFloat(class.."_high_end", ctime + lastingeffect);
 		
-		if( activator:GetNetworkedFloat(self:GetClass().."_high_end") && activator:GetNetworkedFloat(self:GetClass().."_high_end") - self.LASTINGEFFECT*5 > CurTime() )then
-			activator:Kill()
-			for id,pl in pairs(player.GetAll())do
-				pl:PrintMessage(HUD_PRINTTALK, activator:Nick().." "..self.OverdosePhrase[math.random(1, #self.OverdosePhrase)].." "..self.Nicknames[math.random(1, #self.Nicknames)].." and died.")
-			end
+		if( activator:GetNetworkedFloat(class.."_high_end") && activator:GetNetworkedFloat(class.."_high_end") - lastingeffect*5 > CurTime() )then
+			--kill em
+			activator.DURGZ_MOD_DEATH = class;
+			activator.DURGZ_MOD_OVERDOSE = overdosephrase[math.random(1, #overdosephrase)];
+			activator.DURGZ_MOD_NICKNAMES = nicknames[math.random(1, #nicknames)];
+			activator:Kill();
+
 		end
+end
+
+hook.Add("PlayerDeath", "durgz_death_notice", function(victim, inflictor, attacker)
+
+	if( victim.DURGZ_MOD_DEATH )then
+			--add shmexy killicon
+			umsg.Start( "PlayerKilledByDrug" ) 
+					umsg.Entity( victim );
+			 		umsg.String( victim.DURGZ_MOD_DEATH );
+			umsg.End()
+			local s = victim.DURGZ_MOD_OVERRIDE or victim:Nick().." "..victim.DURGZ_MOD_OVERDOSE.." "..victim.DURGZ_MOD_NICKNAMES.." and died.";
+			/*for id,pl in pairs(player.GetAll())do
+				pl:PrintMessage(HUD_PRINTTALK, s);
+			end*/
+			MsgAll(s);
+			victim.DURGZ_MOD_DEATH = nil;
+			victim.DURGZ_MOD_OVERDOSE = nil;
+			victim.DURGZ_MOD_NICKNAMES = nil;
+			victim.DURGZ_MOD_OVERRIDE = nil;
+	return true end
+	
+end)
+
+function ENT:Use(activator,caller)
+	umsg.Start("durgz_lose_virginity", activator)
+	umsg.End()
+
+	self:High(activator,caller);
+	if( self.HASHIGH )then
+		DoHigh( activator, caller, self:GetClass(), self.LASTINGEFFECT, self.TRANSITION_TIME, self.OverdosePhrase, self.Nicknames );
 	end
-	self:AfterHigh(activator, caller)
+	self:AfterHigh(activator, caller);
+	
+	for k,v in pairs(self.LACED)do
+		local drug = ents.Create(v);
+		drug:Spawn();
+		drug:High(activator,caller);
+		DoHigh( activator, caller, drug:GetClass(), drug.LASTINGEFFECT, drug.TRANSITION_TIME, drug.OverdosePhrase, drug.Nicknames );
+		drug:AfterHigh(activator,caller);
+		drug:Remove();
+	end
+	
     self.Entity:Remove()
 end
 
-function ENT:High(activator, caller)
+--this is pretty much a function you call if you want the person taking the drug to say something, all this function does is check if the console command is a ok.
+function ENT:Say(pl, s)
+	local bsool = server_settings.Bool( "durgz_witty_sayings", 0 )
+	if( s == "" )then return bsool; end
+	if( bsool )then
+		pl:ConCommand("say "..s);
+		return true;
+	end
+	return false;
+end
 
+function ENT:Realistic()
+	return server_settings.Bool( "durgz_roleplay", 0 );
+end
+
+function ENT:High(activator, caller)
 end
 
 function ENT:AfterHigh(activator, caller)
-
 end
 
 
@@ -103,7 +158,12 @@ end
 			"cigarette",
 			"alcohol",
 			"mushroom",
-			"lsd"
+			"meth",
+			"ecstasy",
+			"caffeine",
+			"pcp",
+			"lsd",
+			"opium"
 		}
 		
 		local ttime = {
@@ -112,7 +172,12 @@ end
 			4,
 			6,
 			6,
-			6
+			3,
+			3,
+			3,
+			3,
+			6,
+			3
 		}
 		
 		--you can't get out of the heroine high because you die when the high ends
@@ -163,7 +228,8 @@ end
 			pl:EmitSound(Sound("vo/npc/male01/moan0"..math.random(4,5)..".wav"))
 		end
 	end
-	hook.Add("DoPlayerDeath", "durgz_sober_up_cmd", SoberUp)
+	hook.Add("DoPlayerDeath", "durgz_sober_up_cmd_death", SoberUp)
+	hook.Add("PlayerSpawn", "durgz_sober_up_cmd_spawn", SoberUp)
 
 	function ENT:Soberize(pl)
 		SoberUp(pl, true, true, true, true, true);

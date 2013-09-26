@@ -1,6 +1,6 @@
 ENT.Type = "anim"
 ENT.Base = "durgz_base"
-ENT.PrintName = "Acid"
+ENT.PrintName = "LSD"
 ENT.Nicknames = {"LSD", "acid"}
 ENT.OverdosePhrase = {"used too much", "tripped out on"}
 ENT.Author = "cheesylard (inspired by ninjers)"
@@ -14,11 +14,14 @@ ENT.TRANSITION_TIME = 6
 
 if(CLIENT)then
 
+	killicon.Add("durgz_lsd","killicons/durgz_lsd_killicon",Color( 255, 80, 0, 255 ))
+
 	local TRANSITION_TIME = ENT.TRANSITION_TIME; --transition effect from sober to high, high to sober, in seconds how long it will take etc.
 	local HIGH_INTENSITY = 0.77; --1 is max, 0 is nothing at all
 	
 	
 	local function DoLSD()
+		if(!DURGZ_LOST_VIRGINITY)then return; end
 		--self:SetNetworkedFloat( "SprintSpeed"
 		local pl = LocalPlayer();
 		

@@ -13,12 +13,17 @@ ENT.TRANSITION_TIME = 6
 --function for high visuals
 
 if(CLIENT)then
-
+	
+	
+	killicon.Add("durgz_weed","killicons/durgz_weed_killicon",Color( 255, 80, 0, 255 ))
+	
+	
 	local TRANSITION_TIME = ENT.TRANSITION_TIME; --transition effect from sober to high, high to sober, in seconds how long it will take etc.
 	local HIGH_INTENSITY = 0.77; --1 is max, 0 is nothing at all
 	
 	
 	local function DoWeed()
+		if(!DURGZ_LOST_VIRGINITY)then return; end
 		--self:SetNetworkedFloat( "SprintSpeed"
 		local pl = LocalPlayer();
 		
@@ -42,6 +47,7 @@ if(CLIENT)then
 				local e = s + TRANSITION_TIME;
 				local c = CurTime();
 				local pf = (c-s) / (e-s);
+				pl:SetDSP(6);
 				
 				tab[ "$pp_colour_colour" ] =   1 - pf*0.3 //pf*4*HIGH_INTENSITY + 1
 				tab[ "$pp_colour_brightness" ] = -pf*0.11
@@ -71,6 +77,7 @@ if(CLIENT)then
 				tab[ "$pp_colour_contrast" ] = 2.62
 				DrawMotionBlur( 0.03, HIGH_INTENSITY, 0);
 				DrawColorModify( tab ) 
+				pl:SetDSP(6);
 				
 			end
 			

@@ -1,7 +1,7 @@
 ENT.Type = "anim"
 ENT.Base = "durgz_base"
-ENT.PrintName = "Mushrooms"
-ENT.Nicknames = {"shrooms", "magic mushrooms", "mushrooms"}
+ENT.PrintName = "Mushroom"
+ENT.Nicknames = {"'shrooms", "magic mushrooms", "mushrooms"}
 ENT.OverdosePhrase = {"ate too many", "consumed a lot of"}
 ENT.Author = "cheesylard (inspired by ninjers)"
 ENT.Spawnable = true
@@ -13,6 +13,9 @@ ENT.TRANSITION_TIME = 6
 --function for high visuals
 
 if(CLIENT)then
+
+	killicon.Add("durgz_mushroom","killicons/durgz_mushroom_killicon",Color( 255, 80, 0, 255 ))
+
 	local MOVE_FACE_DOWN = 0;
 	local MOVE_FACE_UP = 1;
 	local MOVE_FACE_LEFT = 2;
@@ -25,6 +28,7 @@ if(CLIENT)then
 	local startawesomefacemove = 0;
 	
 	local function DoMushrooms()
+		if(!DURGZ_LOST_VIRGINITY)then return; end
 		--self:SetNetworkedFloat( "SprintSpeed"
 		local pl = LocalPlayer();
 		
@@ -85,6 +89,7 @@ if(CLIENT)then
 		end
 	end
 	local function DoMushroomsFace()
+		if(!DURGZ_LOST_VIRGINITY)then return; end
 		local pl = LocalPlayer();
 		if( file.Exists("../materials/VGUI/durgzmod/awesomeface.vmt") && pl:GetNetworkedFloat("durgz_mushroom_high_start") && pl:GetNetworkedFloat("durgz_mushroom_high_end") > CurTime() )then
 			local pf = 1;

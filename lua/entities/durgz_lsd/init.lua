@@ -11,9 +11,9 @@ function ENT:High(activator,caller)
 		
 	local sayings = {
 		"OH MY GOD I JUST DEFLATED",
-		"I WONDER WHAT HAPPENS WHEN I POUR GASOLINE ALL OVER MYSELF THAT MUST BE THE CURE FOR CANCER, DUDE"
+		"I WONDER WHAT HAPPENS WHEN I POUR GASOLINE ALL OVER MYSELF? THAT MUST BE THE CURE FOR CANCER, DUDE"
 	}
-	activator:ConCommand("say "..sayings[math.random(1,#sayings)])
+	self:Say(activator, ""..sayings[math.random(1,#sayings)])
 		
 end
 
