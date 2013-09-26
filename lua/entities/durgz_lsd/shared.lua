@@ -3,11 +3,11 @@ ENT.Base = "durgz_base"
 ENT.PrintName = "LSD"
 ENT.Nicknames = {"LSD", "acid"}
 ENT.OverdosePhrase = {"used too much", "tripped out on"}
-ENT.Author = "cheesylard (inspired by ninjers)"
+ENT.Author = "TheBomb"
 ENT.Spawnable = true
 ENT.AdminSpawnable = true 
 ENT.Information	 = " lol high scientists" 
-
+ENT.Category = "Drugs"
 ENT.TRANSITION_TIME = 6
 
 --function for high visuals

@@ -3,7 +3,8 @@ ENT.Base = "durgz_base"
 ENT.PrintName = "Mushroom"
 ENT.Nicknames = {"'shrooms", "magic mushrooms", "mushrooms"}
 ENT.OverdosePhrase = {"ate too many", "consumed a lot of"}
-ENT.Author = "cheesylard (inspired by ninjers)"
+ENT.Author = "TheBomb"
+ENT.Category = "Drugs"
 ENT.Spawnable = true
 ENT.AdminSpawnable = true 
 ENT.Information	 = "*Insert mario reference here*" 
@@ -91,7 +92,7 @@ if(CLIENT)then
 	local function DoMushroomsFace()
 		if(!DURGZ_LOST_VIRGINITY)then return; end
 		local pl = LocalPlayer();
-		if( file.Exists("../materials/VGUI/durgzmod/awesomeface.vmt") && pl:GetNetworkedFloat("durgz_mushroom_high_start") && pl:GetNetworkedFloat("durgz_mushroom_high_end") > CurTime() )then
+		if( file.Exists("../materials/VGUI/durgzmod/awesomeface.vmt","GAME") && pl:GetNetworkedFloat("durgz_mushroom_high_start") && pl:GetNetworkedFloat("durgz_mushroom_high_end") > CurTime() )then
 			local pf = 1;
 			if( pl:GetNetworkedFloat("durgz_mushroom_high_start") + TRANSITION_TIME > CurTime() )then
 			

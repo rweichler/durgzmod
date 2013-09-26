@@ -77,7 +77,7 @@ function ENT:SpawnFunction( ply, tr )
  	 
  	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
  	 
- 	local ent = ents.Create( self.Classname ) 
+ 	local ent = ents.Create("durgz_alcohol") 
  		ent:SetPos( SpawnPos ) 
  	ent:Spawn() 
  	ent:Activate() 

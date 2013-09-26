@@ -3,10 +3,11 @@ ENT.Base = "durgz_base"
 ENT.PrintName = "Marijuana"
 ENT.Nicknames = {"pot", "weed", "grass", "marijuana"}
 ENT.OverdosePhrase = {"smoked too much", "breathed in a lot of"}
-ENT.Author = "cheesylard (inspired by ninjers)"
+ENT.Author = "TheBomb"
 ENT.Spawnable = true
 ENT.AdminSpawnable = true 
 ENT.Information	 = "~ 420 ~" 
+ENT.Category = "Drugs"
 
 ENT.TRANSITION_TIME = 6
 

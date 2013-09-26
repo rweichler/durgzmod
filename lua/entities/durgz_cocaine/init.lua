@@ -11,21 +11,17 @@ ENT.LASTINGEFFECT = 45; --how long the high lasts in seconds
 
 function ENT:High(activator,caller)
 	--cut health in half and double the speed
-	if( !self:Realistic() )then
-		activator:SetHealth(activator:Health()/2)
-	end
+
 	if( activator:Health() > 1 )then
 		self:Say(activator, "MYNOSEISDRIBBLINGISANYONEELSESNOSEDRIBBLINGTHATSREALLYWEIRDIHOPEIDONTHAVEACOLD")
 	end
-	
+
 	self.MakeHigh = false;
-	if( !self:Realistic() )then
-		local ss = activator:GetNetworkedFloat("SprintSpeed")
-		local ws = activator:GetNetworkedFloat("WalkSpeed")
-		if activator:GetNetworkedFloat("durgz_cocaine_high_end") < CurTime() &&  ( !activator:GetNetworkedFloat("durgz_oldSprintSpeed") || activator:GetNetworkedFloat("durgz_oldSprintSpeed") == 0 || activator:GetNetworkedFloat( "durgz_oldSprintSpeed") == ss ) then
-			self.MakeHigh = true;
-		end
-	end
+	local ss = activator:GetNetworkedFloat("SprintSpeed")
+	local ws = activator:GetNetworkedFloat("WalkSpeed")
+	if activator:GetNetworkedFloat("durgz_cocaine_high_end") < CurTime() &&  ( !activator:GetNetworkedFloat("durgz_oldSprintSpeed") || activator:GetNetworkedFloat("durgz_oldSprintSpeed") == 0 || activator:GetNetworkedFloat( "durgz_oldSprintSpeed") == ss ) then
+		self.MakeHigh = true;
+	end	
 end
 
 function ENT:AfterHigh(activator, caller)
@@ -72,7 +68,7 @@ function ENT:SpawnFunction( ply, tr )
  	 
  	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
  	 
- 	local ent = ents.Create( self.Classname ) 
+ 	local ent = ents.Create("durgz_cocaine") 
  		ent:SetPos( SpawnPos ) 
  	ent:Spawn() 
  	ent:Activate() 

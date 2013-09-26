@@ -1,9 +1,10 @@
 ENT.Type = "anim"
 ENT.Base = "durgz_base"
 ENT.PrintName = "Cigarette"
+ENT.Category = "Drugs"
 ENT.Nicknames = {"wimpy cigars", "cigarettes", "ciggies"}
 ENT.OverdosePhrase = {"got cancer from"}
-ENT.Author = "cheesylard (inspired by ninjers)"
+ENT.Author = "TheBomb"
 ENT.Spawnable = true
 ENT.AdminSpawnable = true 
 ENT.Information	 = "This stuff makes you look badass." 
@@ -46,11 +47,11 @@ if(CLIENT)then
 			local a = pf*255;
 			
 			local say = "You smoke. Therefore you are cool."
-			draw.DrawText(say, "ScoreboardHead", ScrW() / 2+1 , ScrH()*0.6+1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
-			draw.DrawText(say, "ScoreboardHead", ScrW() / 2-1 , ScrH()*0.6-1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
-			draw.DrawText(say, "ScoreboardHead", ScrW() / 2-1 , ScrH()*0.6+1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
-			draw.DrawText(say, "ScoreboardHead", ScrW() / 2+1 , ScrH()*0.6-1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
-			draw.DrawText(say, "ScoreboardHead", ScrW() / 2 , ScrH()*0.6, Color(255,9,9,255),TEXT_ALIGN_CENTER) 
+			draw.DrawText(say, "Trebuchet24", ScrW() / 2+1 , ScrH()*0.6+1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
+			draw.DrawText(say, "Trebuchet24", ScrW() / 2-1 , ScrH()*0.6-1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
+			draw.DrawText(say, "Trebuchet24", ScrW() / 2-1 , ScrH()*0.6+1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
+			draw.DrawText(say, "Trebuchet24", ScrW() / 2+1 , ScrH()*0.6-1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
+			draw.DrawText(say, "Trebuchet24", ScrW() / 2 , ScrH()*0.6, Color(255,9,9,255),TEXT_ALIGN_CENTER) 
 		end
 	end
 	hook.Add("HUDPaint", "durgz_cigarette_msg", DoCigarette)

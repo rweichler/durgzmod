@@ -6,7 +6,7 @@ ENT.Base = "durgz_base"
 ENT.PrintName = "Heroin"
 ENT.Nicknames = {"heroin"}
 ENT.OverdosePhrase = {"overdosed on", "injected too much", "took too much"}
-ENT.Author = "cheesylard (inspired by ninjers)"
+ENT.Author = "TheBomb"
 ENT.Category = "Drugs"
 ENT.Spawnable = true
 ENT.AdminSpawnable = true
@@ -135,8 +135,8 @@ if(CLIENT)then
 			
 			
 			
-			draw.SimpleText( say, "ScoreboardHead", ScrW()/2, ScrH()*3/4, Color( 255, 255, 255, ich ), TEXT_ALIGN_CENTER )
-			draw.SimpleText( say, "ScoreboardHead", ScrW()/2+1, ScrH()*3/4+1, Color( 0, 0, 0, ich ), TEXT_ALIGN_CENTER )
+			draw.SimpleText( say, "Trebuchet24", ScrW()/2, ScrH()*3/4, Color( 255, 255, 255, ich ), TEXT_ALIGN_CENTER )
+			draw.SimpleText( say, "Trebuchet24", ScrW()/2+1, ScrH()*3/4+1, Color( 0, 0, 0, ich ), TEXT_ALIGN_CENTER )
 			
 		end
 	end

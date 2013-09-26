@@ -20,11 +20,11 @@ function ENT:High(activator,caller)
 	else
 		local health = activator:Health()
 		if( health * 3/2 < 500 )then
-			activator:SetHealth( math.floor(health * 3/2) )
+			activator:SetHealth( math.floor(health + 5) )
 		else
-			activator:SetHealth( health + 50 )
+			activator:SetHealth( health + 5 )
 		end
-		
+		activator:SetGravity(0.2);
 		
 		local sayings = {
 			"does any1 hav goldfish!?1 i want goldfish plz thx",
@@ -38,9 +38,6 @@ function ENT:High(activator,caller)
 end
 
 function ENT:AfterHigh(activator, caller)
-	if( !self:Realistic() )then
-		activator:SetGravity(0.2);
-	end
 end
 
 
@@ -50,7 +47,7 @@ function ENT:SpawnFunction( ply, tr )
  	 
  	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
  	 
- 	local ent = ents.Create( self.Classname ) 
+ 	local ent = ents.Create("durgz_weed") 
  		ent:SetPos( SpawnPos ) 
  	ent:Spawn() 
  	ent:Activate() 

@@ -1,11 +1,7 @@
 "AddonInfo"
 {
-	"name"				"DurgzMod"
-	"version"			"2.2"
-	"up_date"			"14 February 2009"
-	"author_name"			"cheesylard"
-	"author_email"			""
-	"author_url"			""
-	"info"				"ther rly gud 4 u tak em"
-	"override"			"0"
+	"name" "Drugs Mod"
+	"author_name" "author"
+	"info" "REMEMBER TO RATE!
+DurgzMod 2.1 updated to work with GMod 13 - on the workshop!"
 }

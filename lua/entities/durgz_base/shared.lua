@@ -1,9 +1,9 @@
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
-ENT.PrintName = "Essence of drugs"
-ENT.Nicknames = {"the essence of drugs"}
+ENT.PrintName = "Drugz"
+ENT.Nicknames = {"Drugz"}
 ENT.OverdosePhrase = {"took"}
-ENT.Author = "cheesylard"
+ENT.Author = "TheBomb"
 ENT.Category = "Drugs"
 ENT.Spawnable = false
 ENT.AdminSpawnable = false

@@ -9,11 +9,20 @@ ENT.LASTINGEFFECT = 60; --how long the high lasts in seconds
 
 --called when you use it (after it sets the high visual values and removes itself already)
 function ENT:High(activator,caller)
-	self:Say(activator, "what")
-		
+	if( math.random(0,22) == 0 )then
+		activator:Ignite(5,0)
+		self:Say(activator, "FFFFFFUUUUUUUUUUUUUUUUUU")
+	else
+		local health = activator:Health()
+		if( health * 3/2 < 500 )then
+			activator:SetHealth( math.floor(health - 5) )
+		else
+			activator:SetHealth( health - 5 )
+		end
+	        activator:SetGravity(0.135);
+	end
+	
 end
-
-
 
 function ENT:SpawnFunction( ply, tr ) 
    
@@ -21,7 +30,7 @@ function ENT:SpawnFunction( ply, tr )
  	 
  	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
  	 
- 	local ent = ents.Create( self.Classname ) 
+ 	local ent = ents.Create("durgz_mushroom") 
  		ent:SetPos( SpawnPos ) 
  	ent:Spawn() 
  	ent:Activate() 
@@ -29,5 +38,22 @@ function ENT:SpawnFunction( ply, tr )
  	return ent 
  	 
  end 
+function ENT:AfterHigh(activator, caller)
+end
+
+
+
+local function ResetGrav()
+
+	for id,pl in pairs( player.GetAll() )do
+
+		if( pl:GetNetworkedFloat("durgz_mushroom_high_end") - 0.5 < CurTime() && pl:GetNetworkedFloat("durgz_mushroom_high_end") > CurTime() )then
+			pl:SetGravity(1)
+		end
+		
+	end
+	
+end
+hook.Add("Think", "durgz_mushroom_resetgrav", ResetGrav)
 
 

@@ -17,7 +17,7 @@ function ENT:SpawnFunction( plr, tr )
 
 	if not tr.Hit then return end
 	
-	local ent = ents.Create( self.Classname )
+	local ent = ents.Create("durgz_water")
 	ent:SetPos( tr.HitPos + tr.HitNormal * self.MULTIPLY )
 	ent:Spawn()
 	ent:Activate()	

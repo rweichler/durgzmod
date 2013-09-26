@@ -12,10 +12,6 @@ ENT.LASTINGEFFECT = 20; --how long the high lasts in seconds, short because it's
 
 function ENT:High(activator,caller)
 	--make you invincible
-	if( !self:Realistic() )then
-		activator:GodEnable()
-		activator:SetHealth(1)
-	end
 	self:Say(activator, "It's my arm man! My fuckin' arm!")
 	
 end
@@ -46,8 +42,8 @@ function ENT:SpawnFunction( ply, tr )
  	 
  	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
  	 
- 	local ent = ents.Create( self.Classname ) 
- 		ent:SetPos( SpawnPos ) 
+ 	local ent = ents.Create("durgz_heroine") 
+ 	ent:SetPos( SpawnPos ) 
  	ent:Spawn() 
  	ent:Activate() 
  	 

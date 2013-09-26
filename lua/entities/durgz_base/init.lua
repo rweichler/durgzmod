@@ -17,7 +17,7 @@ function ENT:SpawnFunction( ply, tr )
  	 
  	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
  	 
- 	local ent = ents.Create( self.Classname ) 
+ 	local ent = ents.Create("durgz_base") 
  		ent:SetPos( SpawnPos ) 
  	ent:Spawn() 
  	ent:Activate() 
@@ -129,18 +129,10 @@ end
 
 --this is pretty much a function you call if you want the person taking the drug to say something, all this function does is check if the console command is a ok.
 function ENT:Say(pl, s)
-	local bsool = server_settings.Bool( "durgz_witty_sayings", 0 )
-	if( s == "" )then return bsool; end
-	if( bsool )then
-		pl:ConCommand("say "..s);
-		return true;
-	end
 	return false;
 end
 
-function ENT:Realistic()
-	return server_settings.Bool( "durgz_roleplay", 0 );
-end
+
 
 function ENT:High(activator, caller)
 end
