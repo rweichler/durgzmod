@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-ENT.MODEL = "models/props/cs_office/Water_bottle.mdl"
+ENT.MODEL = "models/drug_mod/the_bottle_of_water.mdl"
 
 ENT.HASHIGH = false
 

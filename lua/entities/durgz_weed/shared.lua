@@ -44,7 +44,7 @@ if(CLIENT)then
 				local pf = (c-s) / (e-s);
 				
 				tab[ "$pp_colour_colour" ] =   1 - pf*0.3 //pf*4*HIGH_INTENSITY + 1
-				tab[ "$pp_colour_brightness" ] = -pf*0.17
+				tab[ "$pp_colour_brightness" ] = -pf*0.11
 				tab[ "$pp_colour_contrast" ] = 1 + pf*1.62
 				DrawMotionBlur( 0.03, pf*HIGH_INTENSITY, 0);
 				DrawColorModify( tab ) 
@@ -59,7 +59,7 @@ if(CLIENT)then
 				pl:SetDSP(1)
 				
 				tab[ "$pp_colour_colour" ] = 1 - pf*0.3
-				tab[ "$pp_colour_brightness" ] = -pf*0.17
+				tab[ "$pp_colour_brightness" ] = -pf*0.11
 				tab[ "$pp_colour_contrast" ] = 1 + pf*1.62
 				DrawMotionBlur( 0.03, pf*HIGH_INTENSITY, 0);
 				DrawColorModify( tab ) 
@@ -67,7 +67,7 @@ if(CLIENT)then
 			else
 				
 				tab[ "$pp_colour_colour" ] = 0.77//5*HIGH_INTENSITY
-				tab[ "$pp_colour_brightness" ] = -0.17
+				tab[ "$pp_colour_brightness" ] = -0.11
 				tab[ "$pp_colour_contrast" ] = 2.62
 				DrawMotionBlur( 0.03, HIGH_INTENSITY, 0);
 				DrawColorModify( tab ) 

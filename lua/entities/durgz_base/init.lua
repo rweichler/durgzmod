@@ -33,6 +33,10 @@ function ENT:Initialize()
 		phys:Wake()  	
 	end
 	
+	if( self.MASS )then
+		self.Entity:GetPhysicsObject():SetMass( self.MASS );
+	end
+	
 end
 
  function ENT:OnTakeDamage( dmginfo ) 
@@ -77,6 +81,7 @@ function ENT:Use(activator,caller)
 			end
 		end
 	end
+	self:AfterHigh(activator, caller)
     self.Entity:Remove()
 end
 
@@ -84,6 +89,9 @@ function ENT:High(activator, caller)
 
 end
 
+function ENT:AfterHigh(activator, caller)
+
+end
 
 
 
@@ -94,13 +102,15 @@ end
 			"cocaine",
 			"cigarette",
 			"alcohol",
-			"mushroom"
+			"mushroom",
+			"lsd"
 		}
 		
 		local ttime = {
 			6,
 			5,
-			0,
+			4,
+			6,
 			6,
 			6
 		}
@@ -127,10 +137,10 @@ end
 		
 		--remove cigarette if there is one
 		
-		if( pl.DurgzModCigarette && pl.DurgzModCigarette:IsValid() )then
+		/*if( pl.DurgzModCigarette && pl.DurgzModCigarette:IsValid() )then
 			pl.DurgzModCigarette:Remove()
 			pl.DurgzModCigarette = nil
-		end
+		end*/
 		
 		--set speed back to normal
 		
@@ -154,21 +164,6 @@ end
 		end
 	end
 	hook.Add("DoPlayerDeath", "durgz_sober_up_cmd", SoberUp)
-	
-	/*local function SoberSay( pl, txt)
-		if string.find(string.upper(txt), "!SOBER") == 1 then 
-			pl:ConCommand("pp_motionblur 0")
-			pl:ConCommand("pp_dof 0")
-			pl:ConCommand("pp_bloom 0")
-			pl:ConCommand("pp_colormod 0")
-			pl:ConCommand("pp_mat_overlay 0")
-			pl:ConCommand("pp_sharpen 0")
-			pl:GodDisable()
-			SoberUp(pl, true, true, true, true, true);
-			return ""
-		end
-	end
-	hook.Add ( "PlayerSay", "durgz_sober_up_psay", SoberSay )*/
 
 	function ENT:Soberize(pl)
 		SoberUp(pl, true, true, true, true, true);

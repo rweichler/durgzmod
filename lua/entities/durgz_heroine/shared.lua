@@ -1,7 +1,10 @@
+--I know the folder "heroine" isn't right but I wanted the files to overwrite instead of having two files, heroine and heroin. So I just kept it as-is.
+
+
 ENT.Type = "anim"
 ENT.Base = "durgz_base"
-ENT.PrintName = "Heroine"
-ENT.Nicknames = {"heroine"}
+ENT.PrintName = "Heroin"
+ENT.Nicknames = {"heroin"}
 ENT.OverdosePhrase = {"overdosed on", "injected too much", "took too much"}
 ENT.Author = "cheesylard (inspired by ninjers)"
 ENT.Category = "Drugs"
@@ -102,4 +105,35 @@ if(CLIENT)then
 		end
 	end
 	hook.Add("RenderScreenspaceEffects", "durgz_heroine_high", DoHeroine)
+	
+	local cdww, cdww2, cdww3
+	cdww2 = -1
+	
+	local STROBE_PACE_2 = 1;
+	
+	local function HeroinNotice()
+		local pl = LocalPlayer();
+		if( pl:GetNetworkedFloat("durgz_heroine_high_end") && pl:GetNetworkedFloat("durgz_heroine_high_start") != 0 && pl:GetNetworkedFloat("durgz_heroine_high_end") > CurTime() && pl:GetNetworkedFloat("durgz_heroine_high_end") - TRANSITION_TIME < CurTime() )then
+			
+			
+			if !cdww || cdww < CurTime() then
+				cdww = CurTime() + STROBE_PACE_2
+				cdww2 = cdww2*-1
+			end
+			if cdww2 == -1 then
+				cdww3 = 255
+			else
+				cdww3 = 0
+			end
+			local ich = (cdww2*((cdww - CurTime())*(255/STROBE_PACE_2)))+cdww3
+			local say = "You need more heroin";
+			
+			
+			
+			draw.SimpleText( say, "ScoreboardHead", ScrW()/2, ScrH()*3/4, Color( 255, 255, 255, ich ), TEXT_ALIGN_CENTER )
+			draw.SimpleText( say, "ScoreboardHead", ScrW()/2+1, ScrH()*3/4+1, Color( 0, 0, 0, ich ), TEXT_ALIGN_CENTER )
+			
+		end
+	end
+	hook.Add("HUDPaint", "durgz_heroine_notice", HeroinNotice);
 end

@@ -4,6 +4,7 @@ include("shared.lua")
 
 ENT.MODEL = "models/cocn.mdl"
 
+ENT.MASS = 2; --the model is too heavy so we have to override it with THIS
 
 ENT.LASTINGEFFECT = 45; --how long the high lasts in seconds
 
@@ -11,13 +12,32 @@ ENT.LASTINGEFFECT = 45; --how long the high lasts in seconds
 function ENT:High(activator,caller)
 	--cut health in half and double the speed
 	activator:SetHealth(activator:Health()/2)
-	activator:ConCommand("say MYNOSEISDRIBBLINGISANYONEELSESNOSEDRIBBLINGTHATSREALLYWEIRDIHOPEIDONTHAVEACOLD")
+	if( activator:Health() > 1 )then
+		activator:ConCommand("say MYNOSEISDRIBBLINGISANYONEELSESNOSEDRIBBLINGTHATSREALLYWEIRDIHOPEIDONTHAVEACOLD")
+	end
 	
+	self.MakeHigh = false;
+	local ss = activator:GetNetworkedFloat("SprintSpeed")
+	local ws = activator:GetNetworkedFloat("WalkSpeed")
+	if activator:GetNetworkedFloat("durgz_cocaine_high_end") < CurTime() &&  ( !activator:GetNetworkedFloat("durgz_oldSprintSpeed") || activator:GetNetworkedFloat("durgz_oldSprintSpeed") == 0 || activator:GetNetworkedFloat( "durgz_oldSprintSpeed") == ss ) then
+		self.MakeHigh = true;
+	end
+end
+
+function ENT:AfterHigh(activator, caller)
 	
+	--kill them if they're weak
+	if( activator:Health() <=1 )then
+		activator:Kill()
+		for id,pl in pairs(player.GetAll())do
+			pl:PrintMessage(HUD_PRINTTALK, activator:Nick().." died of a heart attack (too much cocaine).")
+		end
+	return
+	end
 	
 	local ss = activator:GetNetworkedFloat("SprintSpeed")
 	local ws = activator:GetNetworkedFloat("WalkSpeed")
-	if activator:GetNetworkedFloat("durgz_cocaine_high_end") < CurTime() &&  ( !activator:GetNetworkedFloat("durgz_oldSprintSpeed") || activator:GetNetworkedFloat("durgz_oldSprintSpeed") == 0 || activator:GetNetworkedFloat( "durgz_oldSprintSpeed") == ss )then
+	if( self.MakeHigh )then
 		activator:SetNetworkedFloat( "durgz_oldSprintSpeed", ss)
 		activator:SetNetworkedFloat( "durgz_oldWalkSpeed", ws)
 		

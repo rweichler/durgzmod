@@ -14,7 +14,7 @@ function ENT:High(activator,caller)
 	--increase health/catch on fire
 	if( math.random(0,10) == 0 )then
 		activator:Ignite(5,0)
-		activator:ConCommand("say FUUUUUUUUUUUUUUUUUUUUUUUUUUCK")
+		activator:ConCommand("say FUUUUUUUUUUUUUUUUUUUUUUUUUU")
 	else
 		for id,pl in pairs(player.GetAll())do
 		
@@ -25,7 +25,7 @@ function ENT:High(activator,caller)
 		end
 		activator:ConCommand("say I am COOL.")
 	end
-	
+	/*
 	--cigarette
 	if( !activator.DurgzModCigarette || !activator.DurgzModCigarette:IsValid() )then
 		local cig = ents.Create("prop_dynamic")
@@ -36,8 +36,11 @@ function ENT:High(activator,caller)
 		cig:Spawn()
 		activator.DurgzModCigarette = cig
 	end
+	*/
 end
 
+
+/*
 local function RemoveCig()
 	for id,pl in pairs(player.GetAll())do
 		if	(pl.DurgzModCigarette && pl.DurgzModCigarette:IsValid() ) 
@@ -49,7 +52,7 @@ local function RemoveCig()
 	end
 end
 hook.Add("Think", "durgz_cigarette_remove", RemoveCig)
-
+*/
 
 
 function ENT:SpawnFunction( ply, tr ) 
