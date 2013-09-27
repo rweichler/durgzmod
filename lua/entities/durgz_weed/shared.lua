@@ -5,10 +5,10 @@ ENT.Nicknames = {
     "pot", "weed", "grass", "marijuana", "reefer", "ganj",
     "kush", "ganja", "sour deisel", "pineapple express",
     "OG kush", "True OG from Elemental Wellness in San Jose, California",
-    "the brickiest shit i have ever seen how can you even OD on this shit you pussy"
+    "the brickiest shit i have ever seen how can you even OD on this shit you pussy",
     "cannabis indica", "cannabis sativa", "cannabis",
     "sativa", "indica", "a drug that is technically impossible to overdose on",
-    "that sticky icky", "sum of dat stikky ikky", "Tin's dick"
+    "that sticky icky", "sum of dat stikky ikky", "Tin's dick",
     "the peace pipe", "the most overrated drug ever"
 }
 ENT.OverdosePhrase = {"smoked too much", "breathed in a lot of", "pulled a Reed off of"}
