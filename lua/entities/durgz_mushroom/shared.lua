@@ -1,9 +1,9 @@
 ENT.Type = "anim"
 ENT.Base = "durgz_base"
 ENT.PrintName = "Mushroom"
-ENT.Nicknames = {"'shrooms", "magic mushrooms", "mushrooms"}
+ENT.Nicknames = {"'shrooms", "magic mushrooms", "mushrooms", "Psilocybin", "Psilocin", "the greatest drug on earth", "lysol", "Eminem's drug of choice"}
 ENT.OverdosePhrase = {"ate too many", "consumed a lot of"}
-ENT.Author = "TheBomb"
+ENT.Author = "Matt Malone"
 ENT.Category = "Drugs"
 ENT.Spawnable = true
 ENT.AdminSpawnable = true 

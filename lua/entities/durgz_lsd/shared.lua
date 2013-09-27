@@ -1,9 +1,9 @@
 ENT.Type = "anim"
 ENT.Base = "durgz_base"
 ENT.PrintName = "LSD"
-ENT.Nicknames = {"LSD", "acid"}
-ENT.OverdosePhrase = {"used too much", "tripped out on"}
-ENT.Author = "TheBomb"
+ENT.Nicknames = {"LSD", "acid", "a tab", "a few tabs", "an entire vial of LSD", "a glass of LSD"}
+ENT.OverdosePhrase = {"saw God whilst on", "peed in their mouth after taking", "drank"}
+ENT.Author = "Jenna Huxley"
 ENT.Spawnable = true
 ENT.AdminSpawnable = true 
 ENT.Information	 = " lol high scientists" 

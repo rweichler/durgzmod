@@ -1,9 +1,18 @@
 ENT.Type = "anim"
 ENT.Base = "durgz_base"
 ENT.PrintName = "Marijuana"
-ENT.Nicknames = {"pot", "weed", "grass", "marijuana"}
-ENT.OverdosePhrase = {"smoked too much", "breathed in a lot of"}
-ENT.Author = "TheBomb"
+ENT.Nicknames = {
+    "pot", "weed", "grass", "marijuana", "reefer", "ganj",
+    "kush", "ganja", "sour deisel", "pineapple express",
+    "OG kush", "True OG from Elemental Wellness in San Jose, California",
+    "the brickiest shit i have ever seen how can you even OD on this shit you pussy"
+    "cannabis indica", "cannabis sativa", "cannabis",
+    "sativa", "indica", "a drug that is technically impossible to overdose on",
+    "that sticky icky", "sum of dat stikky ikky", "Tin's dick"
+    "the peace pipe", "the most overrated drug ever"
+}
+ENT.OverdosePhrase = {"smoked too much", "breathed in a lot of", "pulled a Reed off of"}
+ENT.Author = "Tin Huynh"
 ENT.Spawnable = true
 ENT.AdminSpawnable = true 
 ENT.Information	 = "~ 420 ~" 
