@@ -33,7 +33,6 @@ function ENT:High(activator,caller)
     if not self:Realistic() then
         if activator:GetNetworkedFloat("durgz_cocaine_high_end") < CurTime() then
             self.MakeHigh = true;
-            print("made high")
         end
     end
 
@@ -54,16 +53,12 @@ function ENT:AfterHigh(activator, caller)
         activator.durgz_cocaine_fast = true
 		activator:SetRunSpeed(DEFAULT_RUN_SPEED*6)
 		activator:SetWalkSpeed(DEFAULT_WALK_SPEED*6)
-        print("set speed")
-    else
-        print("did not set speed")
 	end
 end
 
 --set speed back to normal once your high is over 
 hook.Add("Think", "durgz_cocaine_resetspeed", function()
     for id,pl in pairs(player.GetAll())do
-        --print(pl.durgz_cocaine_fast)
         if  pl.durgz_cocaine_fast and pl:GetNetworkedFloat("durgz_cocaine_high_end") < CurTime() then
             pl:SetWalkSpeed(DEFAULT_WALK_SPEED)
             pl:SetRunSpeed(DEFAULT_RUN_SPEED)

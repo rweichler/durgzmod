@@ -8,25 +8,9 @@ ENT.MODEL = "models/drug_mod/alcohol_can.mdl"
 ENT.LASTINGEFFECT = 45; --how long the high lasts in seconds
 
 
-/*
-
-    pl:ConCommand("pp_motionblur 1")  
-    pl:ConCommand("pp_motionblur_addalpha 0.05")  
-    pl:ConCommand("pp_motionblur_delay 0.035")  
-    pl:ConCommand("pp_motionblur_drawalpha 1.00")  
-    pl:ConCommand("pp_dof 1")  
-    pl:ConCommand("pp_dof_initlength 9")  
-    pl:ConCommand("pp_dof_spacing 8") 
-    pl:ConCommand("say waitt, wait. guysss. i need to tells u abuot micrsfoft excel!11!") 
-	
-
-    local IDSteam = string.gsub(pl:SteamID(), ":", "")
-
-    timer.Create(IDSteam, 30, 1, UnDrugPlayer, pl)
-
-*/
-
-
+local function shouldnt_do_that_shit(pl)
+    return not pl or pl == nil or not pl:GetActiveWeapon() or pl:GetNetworkedFloat("durgz_alcohol_high_end") < CurTime()
+end
 
 function ENT:High(activator,caller)
 	self:Say(activator,"waitt, wait. guysss. i need to tells u abuot micrsfoft excel!11!")
@@ -52,18 +36,18 @@ function ENT:High(activator,caller)
 	--takes out the pistol and then shoots randomly
 	local oldwep = activator:GetActiveWeapon()
 	
+
+
 	if( !oldwep )then return; end
 	for id,wep in pairs(activator:GetWeapons())do
 		if( wep:GetClass() == "weapon_pistol" )then
 			activator:SelectWeapon("weapon_pistol")
-			timer.Simple(0.3, function()
-				if( activator == nil or !activator:GetActiveWeapon() or activator:GetNetworkedFloat("durgz_alcohol_high_end") < CurTime())then return end
+			timer.Simple(0.3, function() if shouldnt_do_that_shit(activator) then return end
 				activator:ConCommand("+attack")
-				timer.Simple(0.1, function()
+				timer.Simple(0.1, function() if shouldnt_do_that_shit(activator) then return end
 					activator:ConCommand("-attack")
 					if(oldwep == NULL || !oldwep || !activator:Alive())then return end
-						activator:SelectWeapon(oldwep:GetClass()) --Timer Error: entities/durgz_alcohol/init.lua:65: Tried to use a NULL entity!
-
+                        activator:SelectWeapon(oldwep:GetClass())
 				end)
 			end)
 		end
