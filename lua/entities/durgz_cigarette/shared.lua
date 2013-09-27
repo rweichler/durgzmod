@@ -1,10 +1,10 @@
 ENT.Type = "anim"
 ENT.Base = "durgz_base"
 ENT.PrintName = "Cigarette"
-ENT.Category = "Every drunk person"
+ENT.Category = "Drugs"
 ENT.Nicknames = {"wimpy cigars", "cigarettes"}
 ENT.OverdosePhrase = {"got cancer from"}
-ENT.Author = "TheBomb"
+ENT.Author = "John Siler"
 ENT.Spawnable = true
 ENT.AdminSpawnable = true 
 ENT.Information	 = "This stuff makes you look badass." 
