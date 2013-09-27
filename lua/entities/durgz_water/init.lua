@@ -11,17 +11,3 @@ ENT.LASTINGEFFECT = 0;
 function ENT:High(activator,caller)
 	self:Soberize(activator)
 end
-
-
-function ENT:SpawnFunction( plr, tr )
-
-	if not tr.Hit then return end
-	
-	local ent = ents.Create("durgz_water")
-	ent:SetPos( tr.HitPos + tr.HitNormal * self.MULTIPLY )
-	ent:Spawn()
-	ent:Activate()	
-	
-	return ent
-
-end

@@ -11,9 +11,13 @@ ENT.LASTINGEFFECT = 20; --how long the high lasts in seconds, short because it's
 
 
 function ENT:High(activator,caller)
-	--make you invincible
-	self:Say(activator, "It's my arm man! My fuckin' arm!")
-	
+    --make you invincible
+    if not self:Realistic() then
+        activator:GodEnable()
+        activator:SetHealth(1)
+    end
+
+    self:Say(activator, "It's my arm man! My fuckin' arm!")
 end
 
 --heroine is bad, so you die when your high is over (you have to take more to NOT die, kind of like an "addiction")
@@ -32,21 +36,3 @@ local function HeroinDeath()
 	end
 end
 hook.Add("Think", "durgz_heroine_die", HeroinDeath)
-
-	
-
-
-function ENT:SpawnFunction( ply, tr ) 
-   
- 	if ( !tr.Hit ) then return end 
- 	 
- 	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
- 	 
- 	local ent = ents.Create("durgz_heroine") 
- 	ent:SetPos( SpawnPos ) 
- 	ent:Spawn() 
- 	ent:Activate() 
- 	 
- 	return ent 
- 	 
- end 

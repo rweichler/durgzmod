@@ -45,13 +45,12 @@ if(CLIENT)then
 			end
 			
 			local a = pf*255;
-			
 			local say = "You smoke. Therefore you are cool."
-			draw.DrawText(say, "Trebuchet24", ScrW() / 2+1 , ScrH()*0.6+1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
-			draw.DrawText(say, "Trebuchet24", ScrW() / 2-1 , ScrH()*0.6-1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
-			draw.DrawText(say, "Trebuchet24", ScrW() / 2-1 , ScrH()*0.6+1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
-			draw.DrawText(say, "Trebuchet24", ScrW() / 2+1 , ScrH()*0.6-1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
-			draw.DrawText(say, "Trebuchet24", ScrW() / 2 , ScrH()*0.6, Color(255,9,9,255),TEXT_ALIGN_CENTER) 
+			draw.DrawText(say, DURGZ_HUD_FONT, ScrW() / 2+1 , ScrH()*0.6+1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
+			draw.DrawText(say, DURGZ_HUD_FONT, ScrW() / 2-1 , ScrH()*0.6-1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
+			draw.DrawText(say, DURGZ_HUD_FONT, ScrW() / 2-1 , ScrH()*0.6+1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
+			draw.DrawText(say, DURGZ_HUD_FONT, ScrW() / 2+1 , ScrH()*0.6-1, Color(255,255,255,a),TEXT_ALIGN_CENTER) 
+			draw.DrawText(say, DURGZ_HUD_FONT, ScrW() / 2 , ScrH()*0.6, Color(255,9,9,255),TEXT_ALIGN_CENTER) 
 		end
 	end
 	hook.Add("HUDPaint", "durgz_cigarette_msg", DoCigarette)

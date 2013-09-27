@@ -16,16 +16,17 @@ function ENT:High(activator,caller)
 		activator:Ignite(5,0)
 		self:Say(activator,"FUUUUUUUUUUUUUUUUUUUUUUUUUU")
 	else
-		if( self:Say(activator, "") )then
-			for id,pl in pairs(player.GetAll())do
-			
-				if(pl != activator)then
-					pl:ConCommand("say "..activator:Nick().." is COOL.")
-				end
-				
-			end
-		end
-		self:Say(activator,"I am COOL.")
+        --[[
+        --Exploitable by changing name to "/concommand BAN *" or something
+        if( self:Say(activator, "") )then
+            for id,pl in pairs(player.GetAll())do
+                if(pl != activator)then
+                    pl:ConCommand("say "..activator:Nick().." is COOL.")
+                end
+            end
+        end
+        ]]
+        self:Say(activator,"I am COOL.")
 	end
 	/*
 	--cigarette
@@ -56,18 +57,3 @@ end
 hook.Add("Think", "durgz_cigarette_remove", RemoveCig)
 */
 
-
-function ENT:SpawnFunction( ply, tr ) 
-   
- 	if ( !tr.Hit ) then return end 
- 	 
- 	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
- 	 
- 	local ent = ents.Create("durgz_cigarette") 
- 		ent:SetPos( SpawnPos ) 
- 	ent:Spawn() 
- 	ent:Activate() 
- 	 
- 	return ent 
- 	 
- end 

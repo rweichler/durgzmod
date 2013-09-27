@@ -1,3 +1,8 @@
+DURGZ_HUD_FONT = "Trebuchet24"
+
+
+
+
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Drugz"

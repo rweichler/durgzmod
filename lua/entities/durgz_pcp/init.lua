@@ -19,22 +19,3 @@ function ENT:High(activator,caller)
 		
 end
 
-
-
-function ENT:SpawnFunction( ply, tr ) 
-   
- 	if ( !tr.Hit ) then return end 
- 	 
- 	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
- 	 
- 	local ent = ents.Create("durgz_pcp") 
- 		ent:SetPos( SpawnPos ) 
- 	ent:Spawn() 
- 	ent:Activate() 
- 	 
- 	return ent 
- 	 
- end
-
-
-

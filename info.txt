@@ -1,7 +1,6 @@
 "AddonInfo"
 {
-	"name" "Drugs Mod"
-	"author_name" "author"
-	"info" "REMEMBER TO RATE!
-DurgzMod 2.1 updated to work with GMod 13 - on the workshop!"
+	"name" "durgzmod"
+	"author_name" "cheesylard"
+	"info" "Legalize LSD"
 }

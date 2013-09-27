@@ -11,20 +11,20 @@ ENT.LACED = {}
 CreateConVar( "durgz_witty_sayings", "1", { FCVAR_REPLICATED, FCVAR_ARCHIVE } )  --0 for no witty sayings when you take the drug 
 CreateConVar( "durgz_roleplay", "0", { FCVAR_REPLICATED, FCVAR_ARCHIVE } ) --set to 1 for none of those "special" side effects (like ultimate speed and really low gravity)
 
-function ENT:SpawnFunction( ply, tr ) 
-   
- 	if ( !tr.Hit ) then return end 
- 	 
- 	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
- 	 
- 	local ent = ents.Create("durgz_base") 
- 		ent:SetPos( SpawnPos ) 
- 	ent:Spawn() 
- 	ent:Activate() 
- 	 
- 	return ent 
- 	 
- end 
+function ENT:SpawnFunction( ply, tr, Classname)
+
+    if ( !tr.Hit ) then return end
+
+    local SpawnPos = tr.HitPos + tr.HitNormal * 16
+
+    local ent = ents.Create(Classname)
+    ent:SetPos( SpawnPos )
+    ent:Spawn()
+    ent:Activate()
+
+    return ent
+
+end
 
 function ENT:Initialize()	
 
@@ -128,10 +128,17 @@ function ENT:Use(activator,caller)
 end
 
 --this is pretty much a function you call if you want the person taking the drug to say something, all this function does is check if the console command is a ok.
-function ENT:Say(pl, s)
-	return false;
+function ENT:Say(pl, str)
+    local should_say = GetConVar("durgz_witty_sayings", 0):GetBool()
+    if should_say and str != "" then
+        pl:ConCommand("say "..str)
+    end
+    return should_say
 end
 
+function ENT:Realistic()
+    return GetConVar("durgz_roleplay", 0):GetBool()
+end
 
 
 function ENT:High(activator, caller)

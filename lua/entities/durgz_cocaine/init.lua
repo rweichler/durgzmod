@@ -1,27 +1,43 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-
 ENT.MODEL = "models/cocn.mdl"
 
 ENT.MASS = 2; --the model is too heavy so we have to override it with THIS
 
 ENT.LASTINGEFFECT = 45; --how long the high lasts in seconds
 
+--get default walk/run speed
+local DEFAULT_WALK_SPEED = 0
+local DEFAULT_RUN_SPEED = 0
+
+local hook_name = "durgzmod_getwalkrunspeed"
+hook.Add("PlayerSpawn", hook_name, function(pl)
+    DEFAULT_WALK_SPEED = pl:GetWalkSpeed()
+    DEFAULT_RUN_SPEED = pl:GetRunSpeed()
+end)
+
 
 function ENT:High(activator,caller)
 	--cut health in half and double the speed
+    if not self:Realistic() then
+        activator:SetHealth(activator:Health()/2)
+    end
 
 	if( activator:Health() > 1 )then
 		self:Say(activator, "MYNOSEISDRIBBLINGISANYONEELSESNOSEDRIBBLINGTHATSREALLYWEIRDIHOPEIDONTHAVEACOLD")
 	end
 
 	self.MakeHigh = false;
-	local ss = activator:GetNetworkedFloat("SprintSpeed")
-	local ws = activator:GetNetworkedFloat("WalkSpeed")
-	if activator:GetNetworkedFloat("durgz_cocaine_high_end") < CurTime() &&  ( !activator:GetNetworkedFloat("durgz_oldSprintSpeed") || activator:GetNetworkedFloat("durgz_oldSprintSpeed") == 0 || activator:GetNetworkedFloat( "durgz_oldSprintSpeed") == ss ) then
-		self.MakeHigh = true;
-	end	
+
+    if not self:Realistic() then
+        if activator:GetNetworkedFloat("durgz_cocaine_high_end") < CurTime() then
+            self.MakeHigh = true;
+            print("made high")
+        end
+    end
+
+
 end
 
 function ENT:AfterHigh(activator, caller)
@@ -34,45 +50,25 @@ function ENT:AfterHigh(activator, caller)
 	return
 	end
 	
-	local ss = activator:GetNetworkedFloat("SprintSpeed")
-	local ws = activator:GetNetworkedFloat("WalkSpeed")
 	if( self.MakeHigh )then
-		activator:SetNetworkedFloat( "durgz_oldSprintSpeed", ss)
-		activator:SetNetworkedFloat( "durgz_oldWalkSpeed", ws)
-		
-		activator:SetRunSpeed(ss*6)
-		activator:SetWalkSpeed(ws*6)
+        activator.durgz_cocaine_fast = true
+		activator:SetRunSpeed(DEFAULT_RUN_SPEED*6)
+		activator:SetWalkSpeed(DEFAULT_WALK_SPEED*6)
+        print("set speed")
+    else
+        print("did not set speed")
 	end
 end
 
 --set speed back to normal once your high is over 
-local function ResetSpeed()
-	for id,pl in pairs(player.GetAll())do
-	
-		if pl:GetNetworkedFloat("durgz_cocaine_high_end") < CurTime() && pl:GetNetworkedFloat("durgz_cocaine_high_end") + 0.5 > CurTime() && ( pl:GetNetworkedFloat( "durgz_oldSprintSpeed" ) && pl:GetNetworkedFloat("durgz_oldSprintSpeed") != 0)then
-			pl:SetWalkSpeed(pl:GetNetworkedFloat( "durgz_oldWalkSpeed" ))
-			pl:SetRunSpeed(pl:GetNetworkedFloat( "durgz_oldSprintSpeed" ))
-		end
-		
-	end
-end
-hook.Add("Think", "durgz_cocaine_resetspeed", ResetSpeed)
+hook.Add("Think", "durgz_cocaine_resetspeed", function()
+    for id,pl in pairs(player.GetAll())do
+        --print(pl.durgz_cocaine_fast)
+        if  pl.durgz_cocaine_fast and pl:GetNetworkedFloat("durgz_cocaine_high_end") < CurTime() then
+            pl:SetWalkSpeed(DEFAULT_WALK_SPEED)
+            pl:SetRunSpeed(DEFAULT_RUN_SPEED)
+            pl.durgz_cocaine_fast = false
+        end
+    end
+end)
 
-	
-
-
-
-function ENT:SpawnFunction( ply, tr ) 
-   
- 	if ( !tr.Hit ) then return end 
- 	 
- 	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
- 	 
- 	local ent = ents.Create("durgz_cocaine") 
- 		ent:SetPos( SpawnPos ) 
- 	ent:Spawn() 
- 	ent:Activate() 
- 	 
- 	return ent 
- 	 
- end 

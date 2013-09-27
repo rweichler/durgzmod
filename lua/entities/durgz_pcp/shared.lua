@@ -3,7 +3,7 @@ ENT.Base = "durgz_base"
 ENT.PrintName = "PCP"
 ENT.Nicknames = {"PCP"}
 ENT.OverdosePhrase = {"overdosed on"}
-ENT.Author = "shit fixed by Metasync, original by cheesylard (inspired by ninjers)"
+ENT.Author = "Jared DeVries"
 ENT.Spawnable = true
 ENT.AdminSpawnable = true 
 ENT.Information	 = "GODLIKE!!!" 
@@ -21,10 +21,9 @@ if(CLIENT)then
 	
 	
 	local function DoPCP()
-		if(!DURGZ_LOST_VIRGINITY)then return; end
-		--self:SetNetworkedFloat( "SprintSpeed"
+		if(!DURGZ_LOST_VIRGINITY)then return end
+
 		local pl = LocalPlayer();
-		
 		
 		local tab = {}
 		tab[ "$pp_colour_addr" ] = 0
@@ -64,34 +63,6 @@ if(CLIENT)then
 			    DrawColorModify(tab);
 		end
 	end
-	
-	
-	/*local function DoMsgPCP()
-		local pl = LocalPlayer();
-		
-		
-		
-		if( pl:GetNetworkedFloat("durgz_pcp_high_start") && pl:GetNetworkedFloat("durgz_pcp_high_end") > CurTime() )then
-		
-			local say = "main"
-			
-			if( pl:GetNetworkedFloat("durgz_pcp_high_start") + TRANSITION_TIME > CurTime() )then
-			
-				say = "trans"
-				
-			elseif( pl:GetNetworkedFloat("durgz_pcp_high_end") - TRANSITION_TIME < CurTime() )then
-			
-				say = "trans"
-				
-			end
-			draw.DrawText(say, "ScoreboardHead", ScrW() / 2+1 , ScrH()*0.6+1, Color(255,255,255,255),TEXT_ALIGN_CENTER) 
-			draw.DrawText(say, "ScoreboardHead", ScrW() / 2-1 , ScrH()*0.6-1, Color(255,255,255,255),TEXT_ALIGN_CENTER) 
-			draw.DrawText(say, "ScoreboardHead", ScrW() / 2-1 , ScrH()*0.6+1, Color(255,255,255,255),TEXT_ALIGN_CENTER) 
-			draw.DrawText(say, "ScoreboardHead", ScrW() / 2+1 , ScrH()*0.6-1, Color(255,255,255,255),TEXT_ALIGN_CENTER) 
-			draw.DrawText(say, "ScoreboardHead", ScrW() / 2 , ScrH()*0.6, Color(255,9,9,255),TEXT_ALIGN_CENTER) 
-		end
-	end
-	hook.Add("HUDPaint", "durgz_pcp_msg", DoMsgPCP)*/
 	
 	hook.Add("RenderScreenspaceEffects", "durgz_pcp_high", DoPCP)
 end

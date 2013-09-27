@@ -64,18 +64,3 @@ hook.Add("DoPlayerDeath", "durgz_aspirin_removehealth_reset", function(pl)
 		pl.durgz_aspirin_used = false
 
 end)
-
-function ENT:SpawnFunction( ply, tr ) 
-   
- 	if ( !tr.Hit ) then return end 
- 	 
- 	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
- 	 
- 	local ent = ents.Create("durgz_aspirin") 
- 		ent:SetPos( SpawnPos ) 
- 	ent:Spawn() 
- 	ent:Activate() 
- 	 
- 	return ent 
- 	 
- end 

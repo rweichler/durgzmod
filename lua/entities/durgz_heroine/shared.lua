@@ -135,8 +135,8 @@ if(CLIENT)then
 			
 			
 			
-			draw.SimpleText( say, "Trebuchet24", ScrW()/2, ScrH()*3/4, Color( 255, 255, 255, ich ), TEXT_ALIGN_CENTER )
-			draw.SimpleText( say, "Trebuchet24", ScrW()/2+1, ScrH()*3/4+1, Color( 0, 0, 0, ich ), TEXT_ALIGN_CENTER )
+			draw.SimpleText( say, DURGZ_HUD_FONT, ScrW()/2, ScrH()*3/4, Color( 255, 255, 255, ich ), TEXT_ALIGN_CENTER )
+			draw.SimpleText( say, DURGZ_HUD_FONT, ScrW()/2+1, ScrH()*3/4+1, Color( 0, 0, 0, ich ), TEXT_ALIGN_CENTER )
 			
 		end
 	end

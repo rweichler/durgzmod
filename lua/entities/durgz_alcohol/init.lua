@@ -57,11 +57,11 @@ function ENT:High(activator,caller)
 		if( wep:GetClass() == "weapon_pistol" )then
 			activator:SelectWeapon("weapon_pistol")
 			timer.Simple(0.3, function()
-				if( !activator:GetActiveWeapon() || activator:GetNetworkedFloat("durgz_alcohol_high_end") < CurTime())then return end
+				if( activator == nil or !activator:GetActiveWeapon() or activator:GetNetworkedFloat("durgz_alcohol_high_end") < CurTime())then return end
 				activator:ConCommand("+attack")
 				timer.Simple(0.1, function()
 					activator:ConCommand("-attack")
-					if(oldwep == NULL || !oldwep || !activator:Alive())then return; end
+					if(oldwep == NULL || !oldwep || !activator:Alive())then return end
 						activator:SelectWeapon(oldwep:GetClass()) --Timer Error: entities/durgz_alcohol/init.lua:65: Tried to use a NULL entity!
 
 				end)
@@ -69,19 +69,3 @@ function ENT:High(activator,caller)
 		end
 	end
 end
-
-
-function ENT:SpawnFunction( ply, tr ) 
-   
- 	if ( !tr.Hit ) then return end 
- 	 
- 	local SpawnPos = tr.HitPos + tr.HitNormal * 16 
- 	 
- 	local ent = ents.Create("durgz_alcohol") 
- 		ent:SetPos( SpawnPos ) 
- 	ent:Spawn() 
- 	ent:Activate() 
- 	 
- 	return ent 
- 	 
- end 
