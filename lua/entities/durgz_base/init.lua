@@ -203,13 +203,6 @@ local function SoberUp(pl, x, y, z, ndeath, didntdie)
         pl:SetNetworkedFloat("durgz_"..drugs[i].."_high_end", tend)
     end
     
-    --remove cigarette if there is one
-    
-    /*if( pl.DurgzModCigarette && pl.DurgzModCigarette:IsValid() )then
-        pl.DurgzModCigarette:Remove()
-        pl.DurgzModCigarette = nil
-    end*/
-    
     --set speed back to normal
     
     if pl.durgz_cocaine_fast then
