@@ -130,7 +130,11 @@ end
 --this is pretty much a function you call if you want the person taking the drug to say something, all this function does is check if the console command is a ok.
 function ENT:Say(pl, str)
     local should_say = GetConVar("durgz_witty_sayings", 0):GetBool()
-    if should_say and str != "" then
+    local is_empty = type(str) == "string" and str == "" or type(str) == "table" and #str == 0 or str == nil
+    if should_say and !is_empty then
+        if type(str) == "table" then
+            str = str[math.random(1, #str)]
+        end
         pl:ConCommand("say "..str)
     end
     return should_say

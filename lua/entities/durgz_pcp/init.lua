@@ -15,7 +15,7 @@ function ENT:High(activator,caller)
 		"FOOTBALLLL",
 		"REEEED! MENOS TRES"
 	}
-	self:Say(activator, ""..sayings[math.random(1,#sayings)])
+	self:Say(activator, sayings)
 		
 end
 

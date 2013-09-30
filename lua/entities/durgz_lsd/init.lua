@@ -12,5 +12,5 @@ function ENT:High(activator,caller)
         "OH MY GOD I JUST DEFLATED",
         "I WONDER WHAT HAPPENS WHEN I POUR GASOLINE ALL OVER MYSELF? THAT MUST BE THE CURE FOR CANCER, DUDE"
     }
-    self:Say(activator, ""..sayings[math.random(1,#sayings)])
+    self:Say(activator, sayings)
 end

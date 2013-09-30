@@ -32,7 +32,7 @@ function ENT:High(activator,caller)
 			"duuuuuuuuuuudeeeeeeee",
 			"hi how do i type in chat i cant figure it out"
 		}
-		self:Say( activator, sayings[math.random(1,#sayings)] )
+		self:Say( activator, sayings)
 		
 	end
 end
