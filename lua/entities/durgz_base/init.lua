@@ -212,15 +212,10 @@ end
 		
 		--set speed back to normal
 		
-		if( pl:GetNetworkedFloat( "durgz_oldSprintSpeed" ) && pl:GetNetworkedFloat("durgz_oldSprintSpeed") != 0)then
-			pl:SetWalkSpeed(pl:GetNetworkedFloat( "durgz_oldWalkSpeed" ))
-			pl:SetRunSpeed(pl:GetNetworkedFloat( "durgz_oldSprintSpeed" ))
-		else
-			local ss = pl:GetNetworkedFloat("SprintSpeed")
-			local ws = pl:GetNetworkedFloat("WalkSpeed")
-			pl:SetNetworkedFloat( "durgz_oldSprintSpeed", ss)
-			pl:SetNetworkedFloat( "durgz_oldWalkSpeed", ws)
-		end
+		if pl.durgz_cocaine_fast then
+			pl:SetWalkSpeed(DURGZ_DEFAULT_WALK_SPEED)
+			pl:SetRunSpeed(DURGZ_DEFAULT_RUN_SPEED)
+        end
 		
 		--set sound to normal
 		pl:SetDSP(1, false)

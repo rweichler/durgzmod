@@ -15,6 +15,8 @@ local hook_name = "durgzmod_getwalkrunspeed"
 hook.Add("PlayerSpawn", hook_name, function(pl)
     DEFAULT_WALK_SPEED = pl:GetWalkSpeed()
     DEFAULT_RUN_SPEED = pl:GetRunSpeed()
+    DURGZ_DEFAULT_WALK_SPEED = DEFAULT_WALK_SPEED
+    DURGZ_DEFAULT_RUN_SPEED = DEFAULT_RUN_SPEED
     hook.Remove("PlayerSpawn", hook_name)
 end)
 
