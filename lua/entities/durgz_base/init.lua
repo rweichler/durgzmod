@@ -153,84 +153,85 @@ end
 
 
 
-	local function SoberUp(pl, x, y, z, ndeath, didntdie)
-		--make a smooth transition and not a instant soberization
-		local drugs = {
-			"weed",
-			"cocaine",
-			"cigarette",
-			"alcohol",
-			"mushroom",
-			"meth",
-			"ecstasy",
-			"caffeine",
-			"pcp",
-			"lsd",
-			"opium"
-		}
-		
-		local ttime = {
-			6,
-			5,
-			4,
-			6,
-			6,
-			3,
-			3,
-			3,
-			3,
-			6,
-			3
-		}
-		
-		--you can't get out of the heroine high because you die when the high ends
-		if( !didntdie )then
-			table.insert(ttime, 5)
-			table.insert(drugs, "heroine")
-		end
-		
-		for i = 1, #drugs do
-			local tend = 0
-			if( pl:GetNetworkedFloat("durgz_"..drugs[i].."_high_start") + ttime[i] > CurTime() )then
-				tend = ( CurTime() - pl:GetNetworkedFloat("durgz_"..drugs[i].."_high_start") ) + CurTime()
-			elseif !( pl:GetNetworkedFloat("durgz_"..drugs[i].."_high_end") - ttime[i] < CurTime() )then	
-				tend = CurTime() + ttime[i]
-			elseif( pl:GetNetworkedFloat("durgz_"..drugs[i].."_high_end") > CurTime() )then
-				tend = pl:GetNetworkedFloat("durgz_"..drugs[i].."_high_end")
-			end
-		
-			pl:SetNetworkedFloat("durgz_"..drugs[i].."_high_start", 0)
-			pl:SetNetworkedFloat("durgz_"..drugs[i].."_high_end", tend)
-		end
-		
-		--remove cigarette if there is one
-		
-		/*if( pl.DurgzModCigarette && pl.DurgzModCigarette:IsValid() )then
-			pl.DurgzModCigarette:Remove()
-			pl.DurgzModCigarette = nil
-		end*/
-		
-		--set speed back to normal
-		
-		if pl.durgz_cocaine_fast then
-			pl:SetWalkSpeed(DURGZ_DEFAULT_WALK_SPEED)
-			pl:SetRunSpeed(DURGZ_DEFAULT_RUN_SPEED)
+local function SoberUp(pl, x, y, z, ndeath, didntdie)
+    --make a smooth transition and not a instant soberization
+    local drugs = {
+        "weed",
+        "cocaine",
+        "cigarette",
+        "alcohol",
+        "mushroom",
+        "meth",
+        "ecstasy",
+        "caffeine",
+        "pcp",
+        "lsd",
+        "opium"
+    }
+    
+    local ttime = {
+        6,
+        5,
+        4,
+        6,
+        6,
+        3,
+        3,
+        3,
+        3,
+        6,
+        3
+    }
+    
+    --you can't get out of the heroine high because you die when the high ends
+    if( !didntdie )then
+        table.insert(ttime, 5)
+        table.insert(drugs, "heroine")
+    end
+    
+    for i = 1, #drugs do
+        local tend = 0
+        if( pl:GetNetworkedFloat("durgz_"..drugs[i].."_high_start") + ttime[i] > CurTime() )then
+            tend = ( CurTime() - pl:GetNetworkedFloat("durgz_"..drugs[i].."_high_start") ) + CurTime()
+        elseif !( pl:GetNetworkedFloat("durgz_"..drugs[i].."_high_end") - ttime[i] < CurTime() )then	
+            tend = CurTime() + ttime[i]
+        elseif( pl:GetNetworkedFloat("durgz_"..drugs[i].."_high_end") > CurTime() )then
+            tend = pl:GetNetworkedFloat("durgz_"..drugs[i].."_high_end")
         end
-		
-		--set sound to normal
-		pl:SetDSP(1, false)
-		--no more floating
-		pl:SetGravity(1)
-		
-		if( ndeath )then
-			pl:EmitSound(Sound("vo/npc/male01/moan0"..math.random(4,5)..".wav"))
-		end
-	end
-	hook.Add("DoPlayerDeath", "durgz_sober_up_cmd_death", SoberUp)
-	hook.Add("PlayerSpawn", "durgz_sober_up_cmd_spawn", SoberUp)
+    
+        pl:SetNetworkedFloat("durgz_"..drugs[i].."_high_start", 0)
+        pl:SetNetworkedFloat("durgz_"..drugs[i].."_high_end", tend)
+    end
+    
+    --remove cigarette if there is one
+    
+    /*if( pl.DurgzModCigarette && pl.DurgzModCigarette:IsValid() )then
+        pl.DurgzModCigarette:Remove()
+        pl.DurgzModCigarette = nil
+    end*/
+    
+    --set speed back to normal
+    
+    if pl.durgz_cocaine_fast then
+        pl:SetWalkSpeed(DURGZ_DEFAULT_WALK_SPEED)
+        pl:SetRunSpeed(DURGZ_DEFAULT_RUN_SPEED)
+        pl.durgz_cocaine_fast = false
+    end
+    
+    --set sound to normal
+    pl:SetDSP(1, false)
+    --no more floating
+    pl:SetGravity(1)
+    
+    if( ndeath )then
+        pl:EmitSound(Sound("vo/npc/male01/moan0"..math.random(4,5)..".wav"))
+    end
+end
+hook.Add("DoPlayerDeath", "durgz_sober_up_cmd_death", SoberUp)
+hook.Add("PlayerSpawn", "durgz_sober_up_cmd_spawn", SoberUp)
 
-	function ENT:Soberize(pl)
-		SoberUp(pl, true, true, true, true, true);
-	end
+function ENT:Soberize(pl)
+    SoberUp(pl, true, true, true, true, true);
+end
 
 
